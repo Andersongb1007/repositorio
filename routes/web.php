@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\zipController;
+use App\Http\Controllers\RegistrosController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -35,5 +35,5 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 
-	Route::resource('zip', zipController::class);
+	Route::resource('registro', RegistrosController::class);
 });

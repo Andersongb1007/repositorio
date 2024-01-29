@@ -9,7 +9,7 @@ use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 use Illuminate\Support\Str;
 
-class zipController extends Controller
+class RegistrosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,8 @@ class zipController extends Controller
      */
     public function index()
     {
-        $zips = Registros::all();
-        return view('zip.index', compact('zips'));
+        $registros = Registros::all();
+        return view('registros.index', compact('registros'));
     }
 
     /**
@@ -29,7 +29,7 @@ class zipController extends Controller
      */
     public function create()
     {
-        return view('zip.create');
+        return view('registros.create');
     }
 
     /**
@@ -38,15 +38,13 @@ class zipController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
     public function store(Request $request)
     {
+
         // Recibir el archivo en partes
         $receiver = new FileReceiver("archivos", $request, HandlerFactory::classFromRequest($request));
 
-        if ($receiver->isUploaded() === false) {
-            return response()->json(['error' => 'Error en la carga del archivo'], 400);
-        }
+
 
         $save = $receiver->receive();
 
@@ -82,7 +80,7 @@ class zipController extends Controller
                 'archivos' => $filesJson,
             ]);
 
-            return redirect()->route('registros.show', $registro->id);
+            return redirect()->route('registro.show', $registro->id);
         } else {
             /** @var AbstractHandler $handler */
             $handler = $save->handler();
@@ -101,9 +99,14 @@ class zipController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $registro = Registros::find($id);
 
+        // Asegúrate de que json_decode devuelva un array
+        $videos = json_decode($registro->archivos, true);
+
+        // Pasar los vídeos a la vista
+        return view('registros.show', compact('videos'));
+    }
     /**
      * Show the form for editing the specified resource.
      *

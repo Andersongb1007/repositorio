@@ -43,25 +43,26 @@
             </li>
 
 
-            <li class="nav-item {{ $activePage == 'zip.create' || $activePage == 'zip.index' ? ' active' : '' }}">
-                <a class="nav-link" data-toggle="collapse" href="#zip.index" aria-expanded="true">
+            <li
+                class="nav-item {{ $activePage == 'registro.create' || $activePage == 'registro.index' ? ' active' : '' }}">
+                <a class="nav-link" data-toggle="collapse" href="#registro.index" aria-expanded="true">
 
                     <p>{{ __('Registros') }}
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse show" id="zip.index">
+                <div class="collapse show" id="registro.index">
                     <ul class="nav">
-                        <li class="nav-item{{ $activePage == 'zip.index' ? ' active' : '' }}">
-                            <a class="nav-link" href="{{ route('zip.index') }}">
+                        <li class="nav-item{{ $activePage == 'registro.index' ? ' active' : '' }}">
+                            <a class="nav-link" href="{{ route('registro.index') }}">
                                 <i class="material-icons">content_paste</i>
-                                <p>{{ __('Lista de Zip') }}</p>
+                                <p>{{ __('Lista de registros') }}</p>
                             </a>
                         </li>
-                        <li class="nav-item{{ $activePage == 'zip.create' ? ' active' : '' }}">
-                            <a class="nav-link" href="{{ route('zip.create') }}">
+                        <li class="nav-item{{ $activePage == 'registro.create' ? ' active' : '' }}">
+                            <a class="nav-link" href="{{ route('registro.create') }}">
 
-                                <span class="sidebar-normal"> {{ __('Crear registros') }} </span>
+                                <span class="sidebar-normal"> {{ __('Crear registro') }} </span>
                             </a>
                         </li>
                     </ul>

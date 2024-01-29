@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateZipsTable extends Migration
+class CreateregistrosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateZipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('zips', function (Blueprint $table) {
+        Schema::create('registros', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('url');
+            $table->string('name')->nullable();
+
             $table->string('archivos');
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ class CreateZipsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('zips');
+        Schema::dropIfExists('registros');
     }
 }
