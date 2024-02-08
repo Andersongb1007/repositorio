@@ -138,6 +138,37 @@ class RegistrosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Encontrar el registro en la base de datos
+        $registro = Registros::find($id);
+
+        // Si el registro no existe, redirigir o manejar el error
+        if (!$registro) {
+            return redirect()->route('registro.index')->with('error', 'Registro no encontrado');
+        }
+
+        // Decodificar el JSON para obtener las rutas de los archivos
+        $files = json_decode($registro->archivos, true);
+
+        // Opcional: Eliminar los archivos del servidor
+        if ($files) {
+            foreach ($files as $file) {
+                $file_path = public_path($file);
+                if (file_exists($file_path)) {
+                    unlink($file_path);
+                }
+            }
+
+            // Opcional: Eliminar la carpeta si está vacía
+            $folderPath = public_path('/registros/' . basename(dirname($file_path)));
+            if (is_dir($folderPath) && count(scandir($folderPath)) == 2) { // Solo '.' y '..' están presentes
+                rmdir($folderPath);
+            }
+        }
+
+        // Eliminar el registro de la base de datos
+        $registro->delete();
+
+        // Redirigir a la lista de registros con un mensaje de éxito
+        return redirect()->route('registro.index')->with('success', 'Registro eliminado con éxito');
     }
 }
